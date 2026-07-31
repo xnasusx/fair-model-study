@@ -405,26 +405,14 @@
         // EMPTY SLOT
         isEmpty&&h('div',{style:{fontFamily:ui,fontSize:mb?11:13,color:C.textDim,letterSpacing:"0.12em"}},"• • •"),
 
-        // FILLED — waiting for unit assignment (show unit buttons)
+        // FILLED — waiting for unit assignment. The buttons live in the card
+        // below the tree, not in here: the tree is scaled to fit, so in-node
+        // buttons shrink to ~17px on a narrow screen and become untappable.
         isFilled&&isUnitTarget&&h('div',null,
-          h('div',{style:{display:"flex",alignItems:"center",justifyContent:"center",gap:4,marginBottom:6}},
-            h('span',{style:{fontFamily:display,fontSize:mb?15:18,fontWeight:700,color:C.text}},node.abbr)),
-          h('div',{style:{fontFamily:ui,fontSize:mb?9:10,fontWeight:500,color:C.textDim,marginBottom:6}},node.name),
-          h('div',{style:{display:"flex",gap:mb?8:6,justifyContent:"center"}},
-            ["$","%","#"].map(function(u){
-              var uc=UNIT_MAP[u];
-              return h('button',{
-                key:u,
-                onClick:function(e){e.stopPropagation();tapUnit(u);},
-                style:{
-                  width:mb?42:36,height:mb?42:36,borderRadius:"50%",
-                  background:uc.soft,border:"2px solid "+uc.color,
-                  display:"flex",alignItems:"center",justifyContent:"center",
-                  fontFamily:ui,fontSize:mb?16:15,fontWeight:700,color:uc.color,
-                  cursor:"pointer",transition:"transform 0.1s"
-                }
-              },u);
-            }))),
+          h('div',{style:{display:"flex",alignItems:"center",justifyContent:"center",gap:4}},
+            h('span',{style:{fontFamily:display,fontSize:mb?15:18,fontWeight:700,color:C.text}},node.abbr),
+            h('div',{style:{width:mb?20:24,height:mb?20:24,borderRadius:"50%",background:C.accentSoft,border:"2px dashed "+C.accent,display:"inline-flex",alignItems:"center",justifyContent:"center",fontFamily:ui,fontSize:mb?10:12,fontWeight:700,color:C.accent,flexShrink:0}},"?")),
+          h('div',{style:{fontFamily:ui,fontSize:mb?9:10,fontWeight:500,color:C.textDim,marginTop:2}},node.name)),
 
         // FILLED — unit assigned (complete)
         isFilled&&!isUnitTarget&&hasUnit&&h('div',null,
@@ -473,8 +461,35 @@
       h(ScaledTreeWrap,null,
         h(TreeBranch,{nodeId:"risk",renderNode:renderNode,mb:mb})),
 
+      // Unit prompt — takes the pool's place while a unit is pending, so the
+      // next action is always full size and in the spot you are already looking at.
+      unitTarget&&h('div',{style:Object.assign({},cardStyle(mb,mb?"14px":"16px 20px"),{marginTop:24,borderLeft:"3px solid "+C.accent})},
+        h('div',{style:Object.assign({},eyebrow,{fontSize:10,color:C.accent,marginBottom:10})},"Assign the unit"),
+        h('div',{style:{textAlign:"center",fontFamily:ui,fontSize:mb?12:13,color:C.textDim,marginBottom:14}},
+          "What unit does ",
+          h('span',{style:{fontWeight:700,color:C.text}},NODES[unitTarget].abbr),
+          " — ",NODES[unitTarget].name," — carry?"),
+        h('div',{style:{display:"flex",gap:mb?14:18,justifyContent:"center",flexWrap:"wrap"}},
+          ["$","%","#"].map(function(u){
+            var uc=UNIT_MAP[u];
+            return h('div',{key:u,style:{display:"flex",flexDirection:"column",alignItems:"center",gap:6}},
+              h('button',{
+                onClick:function(){tapUnit(u);},
+                style:{
+                  width:mb?54:58,height:mb?54:58,borderRadius:"50%",
+                  background:uc.soft,border:"2px solid "+uc.color,
+                  display:"flex",alignItems:"center",justifyContent:"center",
+                  fontFamily:ui,fontSize:mb?21:23,fontWeight:700,color:uc.color,
+                  cursor:"pointer",transition:"transform 0.1s"
+                },
+                onMouseEnter:function(e){e.currentTarget.style.transform="scale(1.08)";},
+                onMouseLeave:function(e){e.currentTarget.style.transform="none";}
+              },u),
+              h('div',{style:{fontFamily:ui,fontSize:mb?10:11,fontWeight:500,color:C.textDim}},uc.label));
+          }))),
+
       // Component pool
-      !allDone&&h('div',{style:Object.assign({},cardStyle(mb,mb?"14px":"16px 20px"),{marginTop:24,opacity:unitTarget?0.45:1,transition:"opacity 0.2s",pointerEvents:unitTarget?"none":"auto"})},
+      !allDone&&!unitTarget&&h('div',{style:Object.assign({},cardStyle(mb,mb?"14px":"16px 20px"),{marginTop:24})},
         h('div',{style:Object.assign({},eyebrow,{fontSize:10,color:C.accent,marginBottom:10})},"Component Pool"),
         pool.length>0
           ? h('div',{style:{display:"flex",flexWrap:"wrap",gap:8,justifyContent:"center"}},
