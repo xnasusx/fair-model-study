@@ -32,13 +32,10 @@ python -m http.server 8000
 
 Then open http://localhost:8000.
 
-## Credit and status
+## Status
 
-A learning rebuild of the FAIR Model Study Tool by Tony Martin-Vegue, from
-[From Heatmaps to Histograms](https://www.heatmapstohistograms.com/) — same functionality,
-restyled to my own palette, built to learn how the interaction is put together.
-The [original is here](https://tonym-v.github.io/heatmapstohistograms/fair-model-study.html)
-and is worth your time.
+Built as a training exercise — a study aid for learning the FAIR taxonomy, and for learning how
+this kind of interaction is put together.
 
 The taxonomy follows the FAIR Model Standard Artifact Version 3.0 (January 2025) published by the
 FAIR Institute. This is a study aid, not a substitute for official FAIR training material.

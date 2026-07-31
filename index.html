@@ -636,19 +636,6 @@
   }
 
   // ============================================================
-  // DISCLAIMER
-  // ============================================================
-  function Disclaimer(p){
-    var pd=p.mb?16:24;
-    return h('div',{style:{maxWidth:1100,margin:"0 auto",padding:"32px "+pd+"px 0"}},
-      h('div',{style:{background:C.accentSoft,border:"1px solid rgba(199,132,141,0.32)",borderLeft:"3px solid "+C.accent,borderRadius:14,padding:"16px 20px",marginBottom:64,fontFamily:ui,fontSize:12,color:C.textMuted,lineHeight:1.7}},
-        h('span',{style:Object.assign({},eyebrow,{color:C.accent,display:"block",marginBottom:6})},"A note on this tool"),
-        "Built as a training exercise — a learning rebuild of the FAIR Model Study Tool by Tony Martin-Vegue, from ",
-        h('a',{href:"https://www.heatmapstohistograms.com/",style:{color:C.accent,fontWeight:600,textDecoration:"underline"}},"From Heatmaps to Histograms"),
-        ", restyled to my portfolio palette. The taxonomy follows the FAIR Model Standard Artifact Version 3.0 (January 2025) published by the FAIR Institute. This is a study aid, not a substitute for official FAIR training material, and the FAIR Model™ is a trademark of the FAIR Institute."));
-  }
-
-  // ============================================================
   // MAIN APP
   // ============================================================
   function App(){
@@ -673,7 +660,7 @@
     return h('div',{style:{minHeight:"100vh",background:C.bg,color:C.text}},
 
       // ACT 1
-      h('div',{style:{maxWidth:1100,margin:"0 auto",padding:(mb?40:64)+"px "+pd+"px 0"}},
+      h('div',{style:{maxWidth:1400,margin:"0 auto",padding:(mb?40:64)+"px "+pd+"px 0"}},
         h(SectionLabel,{n:"1",label:"The Lesson",color:C.amber}),
         h('h1',{style:{fontFamily:display,fontSize:mb?34:52,fontWeight:700,lineHeight:1.05,letterSpacing:"-0.02em",marginBottom:24,maxWidth:760,color:C.text}},
           "The FAIR Model, ",h('em',{style:{fontStyle:"italic",color:C.accent}},"from Memory")),
@@ -682,7 +669,7 @@
           h('p',null,"Study the tree below, then switch to practice mode and rebuild it from memory — place each component, then assign its unit. The definitions quiz underneath is a separate exercise covering all 22 testable items: the 13 model components, the 6 forms of loss, and the 3 Probability of Action sub-factors."))),
 
       // ACT 2
-      h('div',{style:{maxWidth:1100,margin:"0 auto",padding:(mb?32:48)+"px "+pd+"px 0"}},
+      h('div',{style:{maxWidth:1400,margin:"0 auto",padding:(mb?32:48)+"px "+pd+"px 0"}},
         h(SectionLabel,{n:"2",label:"The Tool"}),
 
         h('div',{style:cardStyle(mb,mb?"16px 12px":"24px")},
@@ -705,18 +692,18 @@
             : h(PracticeMode,{key:practiceKey,mb:mb,onReset:startPractice}))),
 
       // ACT 3 — DEFINITIONS QUIZ
-      h('div',{style:{maxWidth:1100,margin:"0 auto",padding:(mb?32:48)+"px "+pd+"px 0"}},
+      h('div',{style:{maxWidth:1400,margin:"0 auto",padding:(mb?32:48)+"px "+pd+"px 0"}},
         h(SectionLabel,{n:"3",label:"Definitions Quiz",color:C.plum}),
         h(DefinitionsQuiz,{mb:mb})),
 
       // ACT 4
-      h('div',{style:{maxWidth:1100,margin:"0 auto",padding:(mb?32:48)+"px "+pd+"px 0"}},
+      h('div',{style:{maxWidth:1400,margin:"0 auto",padding:(mb?32:48)+"px "+pd+"px 0"}},
         h(SectionLabel,{n:"4",label:"The Takeaway",color:C.sage}),
         h('div',{style:prose},
           h('p',{style:{marginBottom:16}},"Every factor in the FAIR tree is a lever you can measure, estimate, and act on. Knowing where each one sits, what it measures, and how it connects to its neighbours is what turns the model from a diagram into something you can actually run an assessment with."),
-          h('p',null,"Practice until you can build the whole tree from memory without a mistake. That is the point at which the taxonomy stops being something you look up and starts being something you think in."))),
+          h('p',null,"Practice until you can build the whole tree from memory without a mistake. That is the point at which the taxonomy stops being something you look up and starts being something you think in.")),
 
-      h(Disclaimer,{mb:mb}));
+        h('div',{style:{height:mb?32:56}})));
   }
 
   ReactDOM.createRoot(document.getElementById('root')).render(h(App));
