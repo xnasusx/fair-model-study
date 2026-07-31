@@ -165,10 +165,11 @@
   // ============================================================
   // SECTION LABEL
   // ============================================================
+  // Acts are labelled, not numbered — the badge that used to carry `n` is gone
+  // and the label takes the act's colour instead.
   function SectionLabel(p){
-    return h('div',{style:{display:"flex",alignItems:"center",gap:12,marginBottom:20}},
-      h('div',{style:{width:32,height:32,borderRadius:"50%",background:p.color||C.accent,display:"flex",alignItems:"center",justifyContent:"center",fontFamily:ui,fontSize:14,fontWeight:700,color:C.bg,flexShrink:0}},p.n),
-      h('div',{style:Object.assign({},eyebrow,{fontSize:12,letterSpacing:"0.12em",color:C.textDim})},p.label));
+    return h('div',{style:{display:"flex",alignItems:"center",marginBottom:20}},
+      h('div',{style:Object.assign({},eyebrow,{fontSize:12,letterSpacing:"0.14em",color:p.color||C.accent})},p.label));
   }
 
   // ============================================================
@@ -638,6 +639,10 @@
   // ============================================================
   // MAIN APP
   // ============================================================
+  // The portfolio risk lab renders this page in an iframe and carries the lesson
+  // copy in its own header, so Act 1 is skipped when we are embedded.
+  var EMBEDDED=(function(){try{return window.self!==window.top;}catch(e){return true;}})();
+
   function App(){
     var mb=useIsMobile();
     var s1=useState("study"),mode=s1[0],setMode=s1[1];
@@ -660,8 +665,8 @@
     return h('div',{style:{minHeight:"100vh",background:C.bg,color:C.text}},
 
       // ACT 1
-      h('div',{style:{maxWidth:1400,margin:"0 auto",padding:(mb?40:64)+"px "+pd+"px 0"}},
-        h(SectionLabel,{n:"1",label:"The Lesson",color:C.amber}),
+      !EMBEDDED&&h('div',{style:{maxWidth:1400,margin:"0 auto",padding:(mb?40:64)+"px "+pd+"px 0"}},
+        h(SectionLabel,{label:"The Lesson",color:C.amber}),
         h('h1',{style:{fontFamily:display,fontSize:mb?34:52,fontWeight:700,lineHeight:1.05,letterSpacing:"-0.02em",marginBottom:24,maxWidth:760,color:C.text}},
           "The FAIR Model, ",h('em',{style:{fontStyle:"italic",color:C.accent}},"from Memory")),
         h('div',{style:prose},
@@ -670,7 +675,7 @@
 
       // ACT 2
       h('div',{style:{maxWidth:1400,margin:"0 auto",padding:(mb?32:48)+"px "+pd+"px 0"}},
-        h(SectionLabel,{n:"2",label:"The Tool"}),
+        h(SectionLabel,{label:"The Tool"}),
 
         h('div',{style:cardStyle(mb,mb?"16px 12px":"24px")},
           // Mode toggle
@@ -693,12 +698,12 @@
 
       // ACT 3 — DEFINITIONS QUIZ
       h('div',{style:{maxWidth:1400,margin:"0 auto",padding:(mb?32:48)+"px "+pd+"px 0"}},
-        h(SectionLabel,{n:"3",label:"Definitions Quiz",color:C.plum}),
+        h(SectionLabel,{label:"Definitions Quiz",color:C.plum}),
         h(DefinitionsQuiz,{mb:mb})),
 
       // ACT 4
       h('div',{style:{maxWidth:1400,margin:"0 auto",padding:(mb?32:48)+"px "+pd+"px 0"}},
-        h(SectionLabel,{n:"4",label:"The Takeaway",color:C.sage}),
+        h(SectionLabel,{label:"The Takeaway",color:C.sage}),
         h('div',{style:prose},
           h('p',{style:{marginBottom:16}},"Every factor in the FAIR tree is a lever you can measure, estimate, and act on. Knowing where each one sits, what it measures, and how it connects to its neighbours is what turns the model from a diagram into something you can actually run an assessment with."),
           h('p',null,"Practice until you can build the whole tree from memory without a mistake. That is the point at which the taxonomy stops being something you look up and starts being something you think in.")),
