@@ -6,6 +6,8 @@ and match all 22 testable definitions.
 
 **Live:** https://xnasusx.github.io/fair-model-study/
 
+![The FAIR decomposition tree in study mode, showing all 13 components from Risk down to Secondary Loss Magnitude with the unit each factor carries](preview.png)
+
 ## What it does
 
 - **Study mode** — the complete FAIR decomposition tree, from Risk down to Secondary Loss
@@ -21,7 +23,7 @@ The tree scales itself to fit the viewport, so the full 13-node model stays read
 ## Build
 
 Single self-contained `index.html` — React 18 via UMD CDN, no build step, no dependencies.
-Styled to match the palette and type system of my [portfolio](https://www.xnasusx.com): powder
+Styled to match the palette and type system of my [portfolio](https://xnasusx.github.io/portfolio/): powder
 rose surfaces, warm ink, rose accent, Fraunces for display and Inter for UI.
 
 ## Running locally
@@ -40,3 +42,7 @@ this kind of interaction is put together.
 The taxonomy follows the FAIR Model Standard Artifact Version 3.0 (January 2025) published by the
 FAIR Institute. This is a study aid, not a substitute for official FAIR training material.
 The FAIR Model™ is a trademark of the FAIR Institute.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
