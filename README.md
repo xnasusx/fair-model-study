@@ -45,4 +45,6 @@ The FAIR Model™ is a trademark of the FAIR Institute.
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+Copyright (c) 2026 Susan Shepard.
+
+[GNU AGPL v3 or later](LICENSE). If you modify this and run it as a network service, the AGPL requires you to offer your users the modified source under the same terms.
